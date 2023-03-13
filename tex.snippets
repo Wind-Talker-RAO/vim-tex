@@ -1,0 +1,598 @@
+# Include this code block at the top of a *.snippets file...
+# ----------------------------- #
+global !p
+def math():
+  return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+# ----------------------------- #
+# ...then place 'context "math()"' above any snippets you want to expand only in math mode
+
+# Snippet for creating new generic LaTeX environments
+snippet env "\begin{} ... \end{}"
+\begin{$1}
+    $2
+\end{$1}$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet arr "\begin{} ... \end{}"
+\left\{\begin{array}{$1}
+    $2
+\end{array}\right.$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet prop "\begin{} ... \end{}"
+\begin{Proposition}
+    $1
+\end{Proposition}$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet coro "\begin{} ... \end{}"
+\begin{Corollary}
+    $1
+\end{Corollary}$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet def "\begin{} ... \end{}"
+\begin{Definition}
+    $1
+\end{Definition}$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet lem "\begin{} ... \end{}"
+\begin{Lemma}
+    $1
+\end{Lemma}$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet thm "\begin{} ... \end{}"
+\begin{Theorem}
+    $1
+\end{Theorem}$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet pf "\begin{} ... \end{}"
+\begin{proof}
+    $1
+\end{proof}$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet rmk "\begin{} ... \end{}"
+\begin{Remark}
+    $1
+\end{Remark}$0
+endsnippet
+
+# Snippet for creating new align environments
+snippet ali "equation"
+\begin{align}
+    $1
+\end{align}$0
+endsnippet
+
+# Snippet for creating new aligned environments
+snippet ald "equation"
+\begin{aligned}
+    $1
+\end{aligned}$0
+endsnippet
+
+# Snippet for creating new align* environments
+snippet aln "equation"
+\begin{align*}
+    $1
+\end{align*}$0
+endsnippet
+
+
+snippet "(^|[^a-zA-Z])mm" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`$ ${1:${VISUAL:}} $$0
+endsnippet
+
+snippet "(^|[^a-zA-Z])nn" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`(${1:${VISUAL:}})$0
+endsnippet
+
+snippet "(^|[^a-zA-Z])bnn" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`\Big(${1:${VISUAL:}}\Big)$0
+endsnippet
+
+snippet "(^|[^a-zA-Z])hh" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`[${1:${VISUAL:}}]$0
+endsnippet
+
+snippet "(^|[^a-zA-Z])bhh" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`\Big[${1:${VISUAL:}}\Big]$0
+endsnippet
+
+snippet "(^|[^a-zA-Z])gg" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`\{${1:${VISUAL:}}\}$0
+endsnippet
+
+snippet "(^|[^a-zA-Z])erf" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`\eqref{${1:${VISUAL:}}}$0
+endsnippet
+
+snippet "(^|[^a-zA-Z])lb" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`\label{${1:${VISUAL:}}}$0
+endsnippet
+
+snippet "(^|[^a-zA-Z])rf" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`\ref{${1:${VISUAL:}}}$0
+endsnippet
+
+# Easily insert Euler's number e
+context "math()"
+snippet "([^a-zA-Z])ee" "e^{} supercript" rA
+`!p snip.rv = match.group(1)`e^{${1:${VISUAL:}}} $0
+endsnippet
+
+# Prevent fraction expansion in words containing "ff"
+context "math()"
+snippet "(^|[^a-zA-Z])ff" "\frac{}{}" rA
+`!p snip.rv = match.group(1)`\frac{${1:${VISUAL:}}}{${2:${VISUAL:}}} $0
+endsnippet
+
+# Quickly insert a zero subscript
+context "math()"
+snippet "([a-zA-Z0-9]|[\}\)\]\|'])ss" "Automatic 0 subscript" rA
+`!p snip.rv = match.group(1)`_{${1:h}}$0
+endsnippet
+
+# Quickly insert a zero subscript
+context "math()"
+snippet "([a-zA-Z0-9]|[\}\)\]\|'])tt" "Automatic 0 subscript" rA
+`!p snip.rv = match.group(1)`^{${1:1}}$0
+endsnippet
+
+# A command I personally use for differentials
+context "math()"
+snippet "([^a-zA-Z0-9])df" "\diff" rA
+`!p snip.rv = match.group(1)`\d 
+endsnippet
+
+# A command I personally use for limit
+context "math()"
+snippet "(^|[^a-zA-Z])lim" "\limit" rA
+`!p snip.rv = match.group(1)`\lim_{${1:n} \\to ${2:\\infty}}$0
+endsnippet
+
+# A command I personally use for \sum
+context "math()"
+snippet "(^|[^a-zA-Z])sum" "\sum" rA
+`!p snip.rv = match.group(1)`\sum_{${1:i=1}}^{${2:n}} $0
+endsnippet
+
+# A command I personally use for \alpha
+context "math()"
+snippet "(^|[^a-zA-Z])al" "\alpha" rA
+`!p snip.rv = match.group(1)`\alpha
+endsnippet
+
+# A command I personally use for \beta
+context "math()"
+snippet "(^|[^a-zA-Z])be" "\beta" rA
+`!p snip.rv = match.group(1)`\beta
+endsnippet
+
+# A command I personally use for \theta
+context "math()"
+snippet "(^|[^a-zA-Z])ta" "\theta" rA
+`!p snip.rv = match.group(1)`\theta
+endsnippet
+
+# A command I personally use for \gamma
+context "math()"
+snippet "(^|[^a-zA-Z])ga" "\gamma" rA
+`!p snip.rv = match.group(1)`\gamma
+endsnippet
+
+# A command I personally use for \Gamma
+context "math()"
+snippet "(^|[^a-zA-Z])Ga" "\Gamma" rA
+`!p snip.rv = match.group(1)`\Gamma
+endsnippet
+
+# A command I personally use for \kappa
+context "math()"
+snippet "(^|[^a-zA-Z])ka" "\kappa" rA
+`!p snip.rv = match.group(1)`\kappa
+endsnippet
+
+# A command I personally use for \nabla
+context "math()"
+snippet "(^|[^a-zA-Z])na" "\nabla" rA
+`!p snip.rv = match.group(1)`\nabla
+endsnippet
+
+# A command I personally use for \Delta
+context "math()"
+snippet "(^|[^a-zA-Z])De" "\Delta" rA
+`!p snip.rv = match.group(1)`\Delta
+endsnippet
+
+# A command I personally use for \delta
+context "math()"
+snippet "(^|[^a-zA-Z])de" "\delta" rA
+`!p snip.rv = match.group(1)`\delta
+endsnippet
+
+# A command I personally use for \lambda
+context "math()"
+snippet "(^|[^a-zA-Z])ld" "\lambda" rA
+`!p snip.rv = match.group(1)`\lambda
+endsnippet
+
+
+# A command I personally use for \varepsilon
+context "math()"
+snippet "(^|[^a-zA-Z])ep" "\varepsilon" rA
+`!p snip.rv = match.group(1)`\varepsilon
+endsnippet
+
+# A command I personally use for \varepsilon
+context "math()"
+snippet "(^|[^a-zA-Z])Om" "\Omegea" rA
+`!p snip.rv = match.group(1)`\Omega
+endsnippet
+
+# A command I personally use for \varepsilon
+context "math()"
+snippet "(^|[^a-zA-Z])om" "\omega" rA
+`!p snip.rv = match.group(1)`\omega
+endsnippet
+
+# A command I personally use for \times
+context "math()"
+snippet "(^|[^a-zA-Z])xx" "\times" rA
+`!p snip.rv = match.group(1)`\times 
+endsnippet
+
+# A command I personally use for rightarrow
+context "math()"
+snippet "(^|[^a-zA-Z])ra" "\rightrow" rA
+`!p snip.rv = match.group(1)`\rightarrow 
+endsnippet
+
+# A command I personally use for longrightarrow
+context "math()"
+snippet "(^|[^a-zA-Z])lra" "\longrightarrow" rA
+`!p snip.rv = match.group(1)`\longrightarrow 
+endsnippet
+
+# A command I personally use for \to
+context "math()"
+snippet "(^|[^a-zA-Z])to" "\to" rA
+`!p snip.rv = match.group(1)`\to 
+endsnippet
+
+# A command I personally use for \in
+context "math()"
+snippet "(^|[^a-zA-Z])ii" "\in" rA
+`!p snip.rv = match.group(1)`\in 
+endsnippet
+
+# A command I personally use for \subset
+context "math()"
+snippet "(^|[^a-zA-Z])cc" "\subset" rA
+`!p snip.rv = match.group(1)`\subset 
+endsnippet
+
+# A command I personally use for \cdots
+context "math()"
+snippet "(^|[^a-zA-Z])ds" "\cdots" rA
+`!p snip.rv = match.group(1)`\cdots 
+endsnippet
+
+# A command I personally use for integral
+context "math()"
+snippet "(^|[^a-zA-Z])int" "\int" rA
+`!p snip.rv = match.group(1)`\int_{${1:0}}$0
+endsnippet
+
+# A command I personally use for _^
+context "math()"
+snippet "([a-zA-Z0-9]|[\}\)\]\|'])st" "\varepsilon" rA
+`!p snip.rv = match.group(1)`_{${1:i}}^{${2:n}}$0
+endsnippet
+
+# A command I personally use for infty
+context "math()"
+snippet "(^|[^a-zA-Z])inf" "\infty" rA
+`!p snip.rv = match.group(1)`\infty
+endsnippet
+
+# A command I personally use for \hat{}
+context "math()"
+snippet "(^|[^a-zA-Z])hat" "\hat" rA
+`!p snip.rv = match.group(1)`\hat{${1:u}}$0
+endsnippet
+
+# A command I personally use for \le
+context "math()"
+snippet "(^|[^a-zA-Z])le" "\le" rA
+`!p snip.rv = match.group(1)`\le
+endsnippet
+
+# A command I personally use for \ge
+context "math()"
+snippet "(^|[^a-zA-Z])ge" "\hat" rA
+`!p snip.rv = match.group(1)`\ge
+endsnippet
+
+# A command I personally use for \hat{}
+context "math()"
+snippet "(^|[^a-zA-Z])ne" "\neq" rA
+`!p snip.rv = match.group(1)`\neq
+endsnippet
+
+# A command I personally use for \| \|
+context "math()"
+snippet "(^|[^a-zA-Z])nm" "norm" rA
+`!p snip.rv = match.group(1)`\|$1\|$0
+endsnippet
+
+# A command I personally use for \| \|
+context "math()"
+snippet "(^|[^a-zA-Z])bnm" "norm" rA
+`!p snip.rv = match.group(1)`\Big\|$1\Big\|$0
+endsnippet
+
+# A command I personally use for tilde
+context "math()"
+snippet "(^|[^a-zA-Z])td" "\tilde" rA
+`!p snip.rv = match.group(1)`\tilde{${1:u}}$0
+endsnippet
+
+# A command I personally use for widetilde
+context "math()"
+snippet "(^|[^a-zA-Z])wtd" "\widetilde" rA
+`!p snip.rv = match.group(1)`\widetilde{${1:u}}$0
+endsnippet
+
+# A command I personally use for partial
+context "math()"
+snippet "(^|[^a-zA-Z])pt" "\partial" rA
+`!p snip.rv = match.group(1)`\partial
+endsnippet
+
+# A command I personally use for L^2
+context "math()"
+snippet "(^|[^a-zA-Z])l2" "L^2" rA
+`!p snip.rv = match.group(1)`L^{2}
+endsnippet
+
+# A command I personally use for L^{\infty}
+context "math()"
+snippet "(^|[^a-zA-Z])linf" "L^{\infty}" rA
+`!p snip.rv = match.group(1)`L^{\infty}
+endsnippet
+
+# A command I personally use for H^1
+context "math()"
+snippet "(^|[^a-zA-Z])h1" "\partial" rA
+`!p snip.rv = match.group(1)`H^{1}
+endsnippet
+
+# A command I personally use for H^2
+context "math()"
+snippet "(^|[^a-zA-Z])h2" "\partial" rA
+`!p snip.rv = match.group(1)`H^{2}
+endsnippet
+
+# A command I personally use for L^p
+context "math()"
+snippet "(^|[^a-zA-Z])lp" "L^p" rA
+`!p snip.rv = match.group(1)`L^{${1:p}}$0
+endsnippet
+
+# A command I personally use for H^p
+context "math()"
+snippet "(^|[^a-zA-Z])hp" "H^p" rA
+`!p snip.rv = match.group(1)`H^{${1:p}}$0
+endsnippet
+
+# A command I personally use for W^{k,p}
+context "math()"
+snippet "(^|[^a-zA-Z])wkp" "W^{k,p}" rA
+`!p snip.rv = match.group(1)`W^{${1:k},${2:p}}$0
+endsnippet
+
+# A command I personally use for \text
+context "math()"
+snippet "(^|[^a-zA-Z])txt" "\text" rA
+`!p snip.rv = match.group(1)`\text{$1}$0
+endsnippet
+
+# A command I personally use for \text
+context "math()"
+snippet "(^|[^a-zA-Z])ple" "\text" rA
+`!p snip.rv = match.group(1)`\prec
+endsnippet
+
+# A command I personally use for \;
+context "math()"
+snippet "(^|[^a-zA-Z]);" "\;" rA
+`!p snip.rv = match.group(1)`\;
+endsnippet
+
+# A command I personally use for \sup
+context "math()"
+snippet "(^|[^a-zA-Z])sup" "\sup" rA
+`!p snip.rv = match.group(1)`\sup
+endsnippet
+
+# A command I personally use for \sub
+context "math()"
+snippet "(^|[^a-zA-Z])sub" "\sub" rA
+`!p snip.rv = match.group(1)`\sub
+endsnippet
+
+# A command I personally use for \max
+context "math()"
+snippet "(^|[^a-zA-Z])max" "\max" rA
+`!p snip.rv = match.group(1)`\max
+endsnippet
+
+# A command I personally use for \min
+context "math()"
+snippet "(^|[^a-zA-Z])min" "\min" rA
+`!p snip.rv = match.group(1)`\min
+endsnippet
+
+# A command I personally use for \inf
+context "math()"
+snippet "(^|[^a-zA-Z])Inf" "\inf" rA
+`!p snip.rv = match.group(1)`\inf
+endsnippet
+
+# A command I personally use for \wedge
+context "math()"
+snippet "(^|[^a-zA-Z])wg" "\wedge" rA
+`!p snip.rv = match.group(1)`\wedge
+endsnippet
+
+# A command I personally use for \vee
+context "math()"
+snippet "(^|[^a-zA-Z])vee" "\vee" rA
+`!p snip.rv = match.group(1)`\vee
+endsnippet
+
+# A command I personally use for \tau
+context "math()"
+snippet "(^|[^a-zA-Z])tau" "\tau" rA
+`!p snip.rv = match.group(1)`\tau
+endsnippet
+
+# A command I personally use for \cup
+context "math()"
+snippet "(^|[^a-zA-Z])cup" "\cup" rA
+`!p snip.rv = match.group(1)`\cup
+endsnippet
+
+# A command I personally use for \cap
+context "math()"
+snippet "(^|[^a-zA-Z])cap" "\cap" rA
+`!p snip.rv = match.group(1)`\cap
+endsnippet
+
+# A command I personally use for \pi
+context "math()"
+snippet "(^|[^a-zA-Z])pi" "\pi" rA
+`!p snip.rv = match.group(1)`\pi
+endsnippet
+
+# A command I personally use for \Pi
+context "math()"
+snippet "(^|[^a-zA-Z])PI" "\Pi" rA
+`!p snip.rv = match.group(1)`\Pi
+endsnippet
+
+# A command I personally use for \overline
+context "math()"
+snippet "(^|[^a-zA-Z])oli" "\overline" rA
+`!p snip.rv = match.group(1)`\overline{$1}$0
+endsnippet
+
+# A command I personally use for \notin
+context "math()"
+snippet "(^|[^a-zA-Z])nii" "\notin" rA
+`!p snip.rv = match.group(1)`\notin
+endsnippet
+
+# A command I personally use for ||
+context "math()"
+snippet "(^|[^a-zA-Z])abs" "||" rA
+`!p snip.rv = match.group(1)`| ${1} |$0
+endsnippet
+
+# A command I personally use for \pm
+context "math()"
+snippet "(^|[^a-zA-Z])pm" "\pm" rA
+`!p snip.rv = match.group(1)`\pm
+endsnippet
+
+# A command I personally use for \sigma
+context "math()"
+snippet "(^|[^a-zA-Z])sg" "\sigma" rA
+`!p snip.rv = match.group(1)`\sigma
+endsnippet
+
+# A command I personally use for \rho
+context "math()"
+snippet "(^|[^a-zA-Z])ro" "\rho" rA
+`!p snip.rv = match.group(1)`\rho
+endsnippet
+
+# A command I personally use for \mu
+context "math()"
+snippet "(^|[^a-zA-Z])mu" "\mu" rA
+`!p snip.rv = match.group(1)`\mu
+endsnippet
+
+# A command I personally use for \nu
+context "math()"
+snippet "(^|[^a-zA-Z])nu" "\rho" rA
+`!p snip.rv = match.group(1)`\nu
+endsnippet
+
+# A command I personally use for \equiv
+context "math()"
+snippet "(^|[^a-zA-Z])eqi" "\equiv" rA
+`!p snip.rv = match.group(1)`\equiv
+endsnippet
+
+# A command I personally use for \cdot
+context "math()"
+snippet "(^|[^a-zA-Z])ct" "\cdot" rA
+`!p snip.rv = match.group(1)`\cdot
+endsnippet
+
+# A command I personally use for \eta
+context "math()"
+snippet "(^|[^a-zA-Z])eta" "\eta" rA
+`!p snip.rv = match.group(1)`\eta
+endsnippet
+
+# A command I personally use for \otimes
+context "math()"
+snippet "(^|[^a-zA-Z])ox" "\otimes" rA
+`!p snip.rv = match.group(1)`\otimes
+endsnippet
+
+# A command I personally use for \mathfrak
+context "math()"
+snippet "(^|[^a-zA-Z])mf" "\mathfrak" rA
+`!p snip.rv = match.group(1)`\mathfrak{$1}$0
+endsnippet
+
+# A command I personally use for \log
+context "math()"
+snippet "(^|[^a-zA-Z])ln" "\log" rA
+`!p snip.rv = match.group(1)`\log{$1}$0
+endsnippet
+
+# A command I personally use for \sqrt
+context "math()"
+snippet "(^|[^a-zA-Z])sq" "\sqrt" rA
+`!p snip.rv = match.group(1)`\sqrt{$1}$0
+endsnippet
+
+# A command I personally use for \sin
+context "math()"
+snippet "(^|[^a-zA-Z])sin" "\sin" rA
+`!p snip.rv = match.group(1)`\sin{$1}$0
+endsnippet
+
+# A command I personally use for \cos
+context "math()"
+snippet "(^|[^a-zA-Z])cos" "\cos" rA
+`!p snip.rv = match.group(1)`\cos{$1}$0
+endsnippet
